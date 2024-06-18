@@ -12,9 +12,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type IMigration interface {
+	Migrate(context.Context, int) error
+}
+
 type demo2Impl struct {
-	kod.Implements[kod.Main]
+	kod.Implements[IMigration]
 	kod.LazyInit
+}
+
+func (ins *demo2Impl) Migrate(context.Context, int) error {
+	pp.Println("migration running...")
+	return nil
 }
 
 // demo2Cmd represents the demo2 command
