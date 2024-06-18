@@ -7,21 +7,17 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kod/kod"
-	"github.com/k0kubun/pp/v3"
 	"github.com/leopku/kodtest/pkg/migrate"
+
+	"github.com/go-kod/kod"
+	// "github.com/k0kubun/pp/v3"
 	"github.com/spf13/cobra"
 )
 
 type demo2Impl struct {
 	kod.Implements[Demo2]
 	kod.LazyInit
-	mig kod.Ref[migrate.Migrate]
-}
-
-func (ins *demo2Impl) Migrate(context.Context, int) error {
-	pp.Println("migration running...")
-	return nil
+	migrate kod.Ref[migrate.IMigrate]
 }
 
 // demo2Cmd represents the demo2 command
@@ -37,8 +33,9 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("demo2 called")
 		err := kod.Run(context.Background(), func(ctx context.Context, ins *app) error {
-			pp.Println(ins.demo2.Get())
-			// ins.demo2.Get()
+			// pp.Println(ins.demo2.Get())
+			demo2Ins := ins.demo2.Get()
+			demo2Ins.migrate.Get().Hello()
 			return nil
 		}, kod.WithOpenTelemetryDisabled())
 		cobra.CheckErr(err)

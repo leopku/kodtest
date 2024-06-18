@@ -2,14 +2,8 @@
 
 package cmd
 
-import (
-	"context"
-)
-
 type Demo1 interface {
 }
 
-// demo2Impl is a component that implements Demo2.
 type Demo2 interface {
-	Migrate(context.Context, int) error
 }

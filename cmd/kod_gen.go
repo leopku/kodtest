@@ -35,7 +35,7 @@ func init() {
 		Name:      "github.com/leopku/kodtest/cmd/Demo2",
 		Interface: reflect.TypeOf((*Demo2)(nil)).Elem(),
 		Impl:      reflect.TypeOf(demo2Impl{}),
-		Refs:      `⟦73ce26ff:KoDeDgE:github.com/leopku/kodtest/cmd/Demo2→github.com/leopku/kodtest/pkg/migrate/Migrate⟧`,
+		Refs:      `⟦34a1f752:KoDeDgE:github.com/leopku/kodtest/cmd/Demo2→github.com/leopku/kodtest/pkg/migrate/IMigrate⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			interceptors := info.Interceptors
 			if h, ok := info.Impl.(interface {
@@ -98,29 +98,6 @@ type demo2_local_stub struct {
 
 // Check that demo2_local_stub implements the Demo2 interface.
 var _ Demo2 = (*demo2_local_stub)(nil)
-
-func (s demo2_local_stub) Migrate(ctx context.Context, a1 int) (err error) {
-
-	if s.interceptor == nil {
-		err = s.impl.Migrate(ctx, a1)
-		return
-	}
-
-	call := func(ctx context.Context, info interceptor.CallInfo, req, res []any) (err error) {
-		err = s.impl.Migrate(ctx, a1)
-		return
-	}
-
-	info := interceptor.CallInfo{
-		Impl:       s.impl,
-		Component:  s.name,
-		FullMethod: "github.com/leopku/kodtest/cmd/Demo2.Migrate",
-		Method:     "Migrate",
-	}
-
-	err = s.interceptor(ctx, info, []any{a1}, []any{}, call)
-	return
-}
 
 type main_local_stub struct {
 	impl        kod.Main
