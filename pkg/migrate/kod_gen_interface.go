@@ -2,7 +2,7 @@
 
 package migrate
 
-// Migrate is a component that implements IMigrate.
+// migrate is a component that implements IMigrate.
 type IMigrate interface {
 	Hello()
 }

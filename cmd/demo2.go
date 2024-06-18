@@ -16,7 +16,7 @@ import (
 type demo2Impl struct {
 	kod.Implements[Demo2]
 	kod.LazyInit
-	mig kod.Ref[migrate.Migrate]
+	mig kod.Ref[migrate.IMigrate]
 }
 
 func (ins *demo2Impl) Migrate(context.Context, int) error {
