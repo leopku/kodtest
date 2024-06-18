@@ -7,7 +7,7 @@ import (
 )
 
 type MemoryStore struct {
-	kod.Implements[IStore]
+	kod.Implements[IKodComponent]
 }
 
 func (MemoryStore) Get(string) any {

@@ -4,7 +4,10 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"context"
 	"fmt"
+
+	"github.com/leopku/kodtest/pkg/store"
 
 	"github.com/go-kod/kod"
 	"github.com/spf13/cobra"
@@ -17,7 +20,12 @@ type demo3Impl struct {
 	// how to declare? How to specify one of implements of some interface?
 	// memstore kod.Ref[store.IStore]
 	// diskstore kod.Ref[store.IStore]
+	store store.IStore
+}
 
+func (impl *demo3Impl) Init(context.Context) error {
+	impl.store = &store.MemoryStore{}
+	return nil
 }
 
 // demo3Cmd represents the demo3 command

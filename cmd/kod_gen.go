@@ -52,11 +52,32 @@ func init() {
 		},
 	})
 	kod.Register(&kod.Registration{
+		Name:      "github.com/leopku/kodtest/cmd/Demo3",
+		Interface: reflect.TypeOf((*Demo3)(nil)).Elem(),
+		Impl:      reflect.TypeOf(demo3Impl{}),
+		Refs:      ``,
+		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
+			interceptors := info.Interceptors
+			if h, ok := info.Impl.(interface {
+				Interceptors() []interceptor.Interceptor
+			}); ok {
+				interceptors = append(interceptors, h.Interceptors()...)
+			}
+
+			return demo3_local_stub{
+				impl:        info.Impl.(Demo3),
+				interceptor: interceptor.Chain(interceptors),
+				name:        info.Name,
+			}
+		},
+	})
+	kod.Register(&kod.Registration{
 		Name:      "github.com/go-kod/kod/Main",
 		Interface: reflect.TypeOf((*kod.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(app{}),
 		Refs: `⟦d9632c20:KoDeDgE:github.com/go-kod/kod/Main→github.com/leopku/kodtest/cmd/Demo1⟧,
-⟦11d40cc0:KoDeDgE:github.com/go-kod/kod/Main→github.com/leopku/kodtest/cmd/Demo2⟧`,
+⟦11d40cc0:KoDeDgE:github.com/go-kod/kod/Main→github.com/leopku/kodtest/cmd/Demo2⟧,
+⟦48991c14:KoDeDgE:github.com/go-kod/kod/Main→github.com/leopku/kodtest/cmd/Demo3⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			interceptors := info.Interceptors
 			if h, ok := info.Impl.(interface {
@@ -77,6 +98,7 @@ func init() {
 // kod.InstanceOf checks.
 var _ kod.InstanceOf[Demo1] = (*demo1Impl)(nil)
 var _ kod.InstanceOf[Demo2] = (*demo2Impl)(nil)
+var _ kod.InstanceOf[Demo3] = (*demo3Impl)(nil)
 var _ kod.InstanceOf[kod.Main] = (*app)(nil)
 
 // Local stub implementations.
@@ -121,6 +143,15 @@ func (s demo2_local_stub) Migrate(ctx context.Context, a1 int) (err error) {
 	err = s.interceptor(ctx, info, []any{a1}, []any{}, call)
 	return
 }
+
+type demo3_local_stub struct {
+	impl        Demo3
+	name        string
+	interceptor interceptor.Interceptor
+}
+
+// Check that demo3_local_stub implements the Demo3 interface.
+var _ Demo3 = (*demo3_local_stub)(nil)
 
 type main_local_stub struct {
 	impl        kod.Main

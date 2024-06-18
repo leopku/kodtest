@@ -13,3 +13,6 @@ type Demo1 interface {
 type Demo2 interface {
 	Migrate(context.Context, int) error
 }
+
+type Demo3 interface {
+}

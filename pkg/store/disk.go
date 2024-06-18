@@ -7,7 +7,7 @@ import (
 )
 
 type DiskStore struct {
-	kod.Implements[IStore]
+	kod.Implements[IKodComponent]
 }
 
 func (DiskStore) Get(string) any {
