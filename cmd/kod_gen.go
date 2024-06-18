@@ -35,7 +35,7 @@ func init() {
 		Name:      "github.com/leopku/kodtest/cmd/Demo2",
 		Interface: reflect.TypeOf((*Demo2)(nil)).Elem(),
 		Impl:      reflect.TypeOf(demo2Impl{}),
-		Refs:      ``,
+		Refs:      `⟦73ce26ff:KoDeDgE:github.com/leopku/kodtest/cmd/Demo2→github.com/leopku/kodtest/pkg/migrate/Migrate⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			interceptors := info.Interceptors
 			if h, ok := info.Impl.(interface {
