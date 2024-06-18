@@ -9,15 +9,12 @@ import (
 
 	"github.com/go-kod/kod"
 	"github.com/k0kubun/pp/v3"
+	"github.com/leopku/kodtest/pkg/migrate"
 	"github.com/spf13/cobra"
 )
 
-type IMigration interface {
-	Migrate(context.Context, int) error
-}
-
 type demo2Impl struct {
-	kod.Implements[IMigration]
+	kod.Implements[migrate.IMigrate]
 	kod.LazyInit
 }
 
