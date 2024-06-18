@@ -14,7 +14,7 @@ func init() {
 	kod.Register(&kod.Registration{
 		Name:      "github.com/leopku/kodtest/pkg/migrate/IMigrate",
 		Interface: reflect.TypeOf((*IMigrate)(nil)).Elem(),
-		Impl:      reflect.TypeOf(Migrate{}),
+		Impl:      reflect.TypeOf(migrate{}),
 		Refs:      ``,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			interceptors := info.Interceptors
@@ -34,7 +34,7 @@ func init() {
 }
 
 // kod.InstanceOf checks.
-var _ kod.InstanceOf[IMigrate] = (*Migrate)(nil)
+var _ kod.InstanceOf[IMigrate] = (*migrate)(nil)
 
 // Local stub implementations.
 

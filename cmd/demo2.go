@@ -10,7 +10,7 @@ import (
 	"github.com/leopku/kodtest/pkg/migrate"
 
 	"github.com/go-kod/kod"
-	// "github.com/k0kubun/pp/v3"
+	"github.com/k0kubun/pp/v3"
 	"github.com/spf13/cobra"
 )
 
@@ -18,6 +18,11 @@ type demo2Impl struct {
 	kod.Implements[Demo2]
 	kod.LazyInit
 	migrate kod.Ref[migrate.IMigrate]
+}
+
+func (ins *demo2Impl) Migrate(context.Context, int) error {
+	pp.Println("migration running...")
+	return nil
 }
 
 // demo2Cmd represents the demo2 command

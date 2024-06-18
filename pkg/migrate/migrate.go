@@ -6,10 +6,10 @@ import (
 	"github.com/go-kod/kod"
 )
 
-type Migrate struct {
+type migrate struct {
 	kod.Implements[IMigrate]
 }
 
-func (Migrate) Hello() {
+func (migrate) Hello() {
 	fmt.Println("hello from migrate")
 }
