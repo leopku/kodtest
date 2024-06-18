@@ -99,6 +99,29 @@ type demo2_local_stub struct {
 // Check that demo2_local_stub implements the Demo2 interface.
 var _ Demo2 = (*demo2_local_stub)(nil)
 
+func (s demo2_local_stub) Migrate(ctx context.Context, a1 int) (err error) {
+
+	if s.interceptor == nil {
+		err = s.impl.Migrate(ctx, a1)
+		return
+	}
+
+	call := func(ctx context.Context, info interceptor.CallInfo, req, res []any) (err error) {
+		err = s.impl.Migrate(ctx, a1)
+		return
+	}
+
+	info := interceptor.CallInfo{
+		Impl:       s.impl,
+		Component:  s.name,
+		FullMethod: "github.com/leopku/kodtest/cmd/Demo2.Migrate",
+		Method:     "Migrate",
+	}
+
+	err = s.interceptor(ctx, info, []any{a1}, []any{}, call)
+	return
+}
+
 type main_local_stub struct {
 	impl        kod.Main
 	name        string

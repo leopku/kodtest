@@ -22,6 +22,7 @@ type demo2Impl struct {
 
 func (ins *demo2Impl) Migrate(context.Context, int) error {
 	pp.Println("migration running...")
+	ins.migrate.Get().Hello()
 	return nil
 }
 
@@ -40,8 +41,7 @@ to quickly create a Cobra application.`,
 		err := kod.Run(context.Background(), func(ctx context.Context, ins *app) error {
 			// pp.Println(ins.demo2.Get())
 			demo2Ins := ins.demo2.Get()
-			demo2Ins.migrate.Get().Hello()
-			return nil
+			return demo2Ins.Migrate(ctx, 1)
 		}, kod.WithOpenTelemetryDisabled())
 		cobra.CheckErr(err)
 	},
