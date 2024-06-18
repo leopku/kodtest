@@ -6,7 +6,10 @@ import (
 	"context"
 )
 
-// demo2Impl is a component that implements IMigration.
-type IMigration interface {
+type Demo1 interface {
+}
+
+// demo2Impl is a component that implements Demo2.
+type Demo2 interface {
 	Migrate(context.Context, int) error
 }

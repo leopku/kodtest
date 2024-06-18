@@ -13,7 +13,7 @@ import (
 )
 
 type demo1Impl struct {
-	kod.Implements[kod.Main]
+	kod.Implements[Demo1]
 	kod.LazyInit
 }
 
@@ -29,10 +29,10 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("demo1 called")
-		err := kod.Run(context.Background(), func(ctx context.Context, ins *demo1Impl) error {
-			pp.Println(ins)
+		err := kod.Run(context.Background(), func(ctx context.Context, ins *app) error {
+			pp.Println(ins.demo1.Get())
 			return nil
-		})
+		}, kod.WithOpenTelemetryDisabled())
 		cobra.CheckErr(err)
 	},
 }

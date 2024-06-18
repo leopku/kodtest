@@ -3,7 +3,7 @@ module github.com/leopku/kodtest
 go 1.22.4
 
 require (
-	github.com/go-kod/kod v0.9.1
+	github.com/go-kod/kod v0.9.2-0.20240618024225-72cd00ceed7c
 	github.com/k0kubun/pp/v3 v3.2.0
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.19.0
@@ -81,5 +81,3 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/go-kod/kod v0.9.1 => /Users/leo/Project/go/kod
